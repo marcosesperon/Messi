@@ -15,9 +15,18 @@ function Messi(data, options) {
   var _this = this;
   _this.options = jQuery.extend({}, Messi.prototype.options, options || {});
   
+
+  
   // preparamos el elemento
   _this.messi = jQuery(_this.template);
   _this.setContent(data);
+  
+  jQuery(document).keyup(function(e){
+        if(e.which == 27){
+          _this.unload();
+      }
+  });
+  
   
   // ajustamos el título
   if(_this.options.title == null) {
@@ -71,6 +80,8 @@ function Messi(data, options) {
     jQuery('.messi-footbox', this.messi).remove();
   
   };
+  
+ 
   
   // preparamos el botón de cerrar automáticamente
   if(_this.options.buttons.length === 0 && _this.options.title == null && !_this.options.autoclose) {
@@ -131,7 +142,17 @@ Messi.prototype = {
   setContent: function(data) {
     jQuery('.messi-content', this.messi).css({padding: this.options.padding, height: this.options.height}).empty().append(data);
   },
-  
+ 
+	keyboardNav: function() {	
+		var _this = this;
+	  jQuery(document).keyup(function(e){
+	      if(e.which == 27){
+	      	this['unload']();
+	          console.log(this);
+	      }
+	  });
+	},
+	  
   viewport: function() {
   
     return {
