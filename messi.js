@@ -1,6 +1,6 @@
 /*
  * jQuery Messi Plugin 1.0
- * https://github.com/marcosesperon/Messi
+ * http://marcosesperon.es/apps/messi/
  *
  * Copyright 2012, Marcos Esperón
  * http://marcosesperon.es
