@@ -87,6 +87,7 @@
   color: #333;
   cursor: pointer;
   background-color: #fff;
+  border: 1px solid rgba(255, 255, 255, .1);
   border-radius: 40px;
 }
 
