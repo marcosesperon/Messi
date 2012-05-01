@@ -1,6 +1,6 @@
 /*
- * jQuery Messi Plugin 1.0
- * http://marcosesperon.es/apps/messi/
+ * jQuery Messi Plugin 1.1
+ * https://github.com/marcosesperon/jquery-messi
  *
  * Copyright 2012, Marcos Esperón
  * http://marcosesperon.es
@@ -93,6 +93,9 @@ function Messi(data, options) {
   // mostramos el mensaje
   if(_this.options.show) _this.show();
   
+  // controlamos el redimensionamiento de la pantalla
+  jQuery(window).bind('resize', function(){ _this.resize(); });
+  
   // configuramos el cierre automático
   if(_this.options.autoclose != null) {
     setTimeout(function(_this) {
@@ -179,6 +182,16 @@ Messi.prototype = {
     
   },
   
+  resize: function() {
+    if(this.options.modal) {
+      jQuery('.messi-modal').css({width: jQuery(document).width(), height: jQuery(document).height()});
+    };
+    if(this.options.center) {
+      this.options.viewport = this.viewport(jQuery('.messi-box', this.messi));
+      this.messi.css({top: this.options.viewport.top, left: this.options.viewport.left});
+    };
+  },
+  
   toggle: function() {
     this[this.visible ? 'hide' : 'show']();
     return this;
@@ -186,6 +199,7 @@ Messi.prototype = {
   
   unload: function() {
     if (this.visible) this.hide();
+    jQuery(window).unbind('resize', this.resize());
     this.messi.remove();
   },
 
