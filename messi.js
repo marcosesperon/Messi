@@ -54,7 +54,7 @@ function Messi(data, options) {
   
     for (var i = 0; i < _this.options.buttons.length; i++) {
       
-      var cls = (_this.options.buttons[i].class) ? _this.options.buttons[i].class : '';
+      var cls = (_this.options.buttons[i].btnClass) ? _this.options.buttons[i].btnClass : '';
       var btn = jQuery('<div class="btnbox"><button class="btn ' + cls + '" href="#">' + _this.options.buttons[i].label + '</button></div>').data('value', _this.options.buttons[i].val);
       btn.bind('click', function() {
         var value = jQuery.data(this, 'value');
@@ -221,8 +221,8 @@ jQuery.extend(Messi, {
   ask: function(data, callback, options) {
     
     var buttons = [
-      {id: 'yes', label: 'Yes', val: 'Y', class: 'btn-success'},
-      {id: 'no', label: 'No', val: 'N', class: 'btn-danger'},
+      {id: 'yes', label: 'Yes', val: 'Y', btnClass: 'btn-success'},
+      {id: 'no', label: 'No', val: 'N', btnClass: 'btn-danger'},
     ];
     
     options = jQuery.extend({closeButton: false, modal: true, buttons: buttons, callback:function() {}}, options || {}, {show: true, unload: true, callback: callback});
