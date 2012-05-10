@@ -43,6 +43,7 @@
   font: 1.3em bold helvetica, arial;
   color: #fff;
   text-shadow: 0 -2px 1px rgba(0, 0, 0, 0.25);
+  background-color: #3b3b3b;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.25, #3b3b3b), color-stop(0.75, #575757));
   background-image: linear-gradient(bottom, #3b3b3b 25%, #575757 75%);
   background-image: -moz-linear-gradient(bottom, #3b3b3b 25%, #575757 75%);
