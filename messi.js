@@ -197,7 +197,7 @@ Messi.prototype = {
   
   unload: function() {
     if (this.visible) this.hide();
-    jQuery(window).unbind('resize', this.resize());
+    jQuery(window).unbind('resize', function () { this.resize(); }());
     this.messi.remove();
   },
 
