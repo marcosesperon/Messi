@@ -208,7 +208,7 @@ jQuery.extend(Messi, {
 
   alert: function(data, callback, options) {        
       
-      var btntxt = (options.btnText) ? options.btnText : 'OK';
+      var btntxt = (options && options.btnText) ? options.btnText : 'OK';
       var buttons = [{id: 'ok', label: btntxt}];
       
       options = jQuery.extend({closeButton: false, modal: true, buttons: buttons, callback:function() {}}, options || {}, {show: true, unload: true, callback: callback});
