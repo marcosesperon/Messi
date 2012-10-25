@@ -199,7 +199,7 @@ Messi.prototype = {
     if (this.visible) this.hide();
     jQuery(window).unbind('resize', function () { this.resize(); }());
     this.messi.remove();
-  },
+  }
 
 };
 
