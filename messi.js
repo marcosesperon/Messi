@@ -56,14 +56,14 @@ function Messi(data, options) {
       
       var cls = (_this.options.buttons[i].btnClass) ? _this.options.buttons[i].btnClass : '';
       var val = (_this.options.buttons[i].val) ? _this.options.buttons[i].val : '';
-      var btn = jQuery('<div class="btnbox"><button class="btn ' + cls + '" href="#">' + _this.options.buttons[i].label + '</button></div>').data('value', val);
+      var btn = jQuery('<td class="btnbox"><button class="btn ' + cls + '" href="#">' + _this.options.buttons[i].label + '</button></td>').data('value', val);
       btn.bind('click', function() {
         var value = jQuery.data(this, 'value');
         var after = (_this.options.callback != null) ? function() { _this.options.callback(value); } : null;
         _this.hide(after);
       });
     
-      jQuery('.messi-actions', this.messi).append(btn);
+      jQuery('.messi-actions-data', this.messi).append(btn);
     
     };
   
@@ -128,7 +128,7 @@ Messi.prototype = {
     width: '500px',                          // message width
     zIndex: 99999                            // message z-index
   },
-  template: '<div class="messi"><div class="messi-box"><div class="messi-wrapper"><div class="messi-titlebox"><span class="messi-title"></span></div><div class="messi-content"></div><div class="messi-footbox"><div class="messi-actions"></div></div></div></div></div>',
+  template: '<div class="messi"><div class="messi-box"><div class="messi-wrapper"><div class="messi-titlebox"><span class="messi-title"></span></div><div class="messi-content"></div><div class="messi-footbox"><table width="100%" cellpadding=0 cellspacing=0 border=0 class="messi-actions"><tr class="messi-actions-data"><tr></table></div></div></div></div>',
   content: '<div></div>',
   visible: false,
     
