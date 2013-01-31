@@ -54,9 +54,8 @@ function Messi(data, options) {
   
     for (var i = 0; i < _this.options.buttons.length; i++) {
       
-      var cls = (_this.options.buttons[i].btnClass) ? _this.options.buttons[i].btnClass : '';
-      var val = (_this.options.buttons[i].val) ? _this.options.buttons[i].val : '';
-      var btn = jQuery('<div class="btnbox"><button class="btn ' + cls + '" href="#">' + _this.options.buttons[i].label + '</button></div>').data('value', val);
+      var cls = (_this.options.buttons[i].class) ? _this.options.buttons[i].class : '';
+      var btn = jQuery('<div class="btnbox"><button class="btn ' + cls + '" href="#">' + _this.options.buttons[i].label + '</button></div>').data('value', _this.options.buttons[i].val);
       btn.bind('click', function() {
         var value = jQuery.data(this, 'value');
         var after = (_this.options.callback != null) ? function() { _this.options.callback(value); } : null;
@@ -157,6 +156,9 @@ Messi.prototype = {
     
     this.messi.css({top: this.options.viewport.top, left: this.options.viewport.left, 'z-index': this.options.zIndex + jQuery('.messi').length}).show().animate({opacity: 1}, 300);
     
+    // cancelamos el scroll
+    //document.documentElement.style.overflow = "hidden";
+    
     this.visible = true;
   
   },
@@ -199,7 +201,7 @@ Messi.prototype = {
     if (this.visible) this.hide();
     jQuery(window).unbind('resize', function () { this.resize(); });
     this.messi.remove();
-  }
+  },
 
 };
 
@@ -208,10 +210,9 @@ jQuery.extend(Messi, {
 
   alert: function(data, callback, options) {        
       
-      var btntxt = (options && options.btnText) ? options.btnText : 'OK';
-      var buttons = [{id: 'ok', label: btntxt}];
+      var buttons = [{id: 'ok', label: 'OK', val: 'OK'}];
       
-      options = jQuery.extend({closeButton: false, modal: true, buttons: buttons, callback:function() {}}, options || {}, {show: true, unload: true, callback: callback});
+      options = jQuery.extend({closeButton: false, buttons: buttons, callback:function() {}}, options || {}, {show: true, unload: true, callback: callback});
       
       return new Messi(data, options);
       
@@ -219,11 +220,9 @@ jQuery.extend(Messi, {
   
   ask: function(data, callback, options) {
     
-    var btnyestxt = (options.btnYesText) ? options.btnYesText : 'Yes';
-    var btnnotxt = (options.btnNoText) ? options.btnNoText : 'No';
     var buttons = [
-      {id: 'yes', label: btnyestxt, val: 'Y', btnClass: 'btn-success'},
-      {id: 'no', label: btnnotxt, val: 'N', btnClass: 'btn-danger'},
+      {id: 'yes', label: 'Yes', val: 'Y', class: 'btn-success'},
+      {id: 'no', label: 'No', val: 'N', class: 'btn-danger'},
     ];
     
     options = jQuery.extend({closeButton: false, modal: true, buttons: buttons, callback:function() {}}, options || {}, {show: true, unload: true, callback: callback});
@@ -256,16 +255,18 @@ jQuery.extend(Messi, {
   
   load: function(url, options) {
       
-    options = jQuery.extend(options || {}, {show: true, unload: true});
+    options = jQuery.extend(options || {}, {show: true, unload: true, params: {}});
     
     var request = {
       url: url,
+      data: options.params,
       dataType: 'html',
       cache: false,
       error: function (request, status, error) {
         console.log(request.responseText);
       },
       success: function(html) {
+        //html = jQuery(html);
         new Messi(html, options);
       }
     };
