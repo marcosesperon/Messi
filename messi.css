@@ -78,7 +78,7 @@
   background-image: none;
 }
 
-.messi-closebtn {
+.messi-closebtn, span[class^="messi-"][class$="-closebtn"] {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -92,7 +92,7 @@
   border-radius: 40px;
 }
 
-.messi-closebtn::before {
+.messi-closebtn::before, span[class^="messi-"][class$="-closebtn"]::before {
   position: relative;
   top: 2px;
   display: block;
@@ -113,7 +113,7 @@
   line-height: 1.3em;
 }
 
-.messi-content .messi-closebtn {
+.messi-content .messi-closebtn, .messi-content span[class^="messi-"][class$="-closebtn"] {
   top: 7px;
   font: 1.3em bold helvetica, arial;
   color: #fff;
@@ -125,7 +125,7 @@
           transition: opacity .25s linear, visibility .1s linear .5s;
 }
 
-.messi-content:hover .messi-closebtn {
+.messi-content:hover .messi-closebtn, .messi-content:hover span[class^="messi-"][class$="-closebtn"] {
   opacity: 1;
 }
 

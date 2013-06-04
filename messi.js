@@ -31,7 +31,10 @@ function Messi(data, options) {
     if(_this.options.buttons.length === 0 && !_this.options.autoclose) {
     
       if(_this.options.closeButton) {
-        var close = jQuery('<span class="messi-closebtn"></span>');
+		  if(_this.options.boxName)
+        	var close = jQuery('<span class="messi-'+_this.options.boxName+'-closebtn"></span>');
+		  else
+        	var close = jQuery('<span class="messi-closebtn"></span>');
         close.bind('click', function() {
           _this.hide();
         });
@@ -76,7 +79,11 @@ function Messi(data, options) {
   if(_this.options.buttons.length === 0 && _this.options.title == null && !_this.options.autoclose) {
     
     if(_this.options.closeButton) {
-      var close = jQuery('<span class="messi-closebtn"></span>');
+      
+		  if(_this.options.boxName)
+        	var close = jQuery('<span class="messi-'+_this.options.boxName+'-closebtn"></span>');
+		  else
+        	var close = jQuery('<span class="messi-closebtn"></span>');
       close.bind('click', function() {
         _this.hide();
       });
@@ -125,7 +132,8 @@ Messi.prototype = {
     unload: true,                            // unload message after hide
     viewport: {top: '0px', left: '0px'},     // if not center message, sets X and Y position
     width: '500px',                          // message width
-    zIndex: 99999                            // message z-index
+    zIndex: 99999,                           // message z-index
+	boxName: null                            // Box name (to get unique box name selector purpose)
   },
   template: '<div class="messi"><div class="messi-box"><div class="messi-wrapper"><div class="messi-titlebox"><span class="messi-title"></span></div><div class="messi-content"></div><div class="messi-footbox"><div class="messi-actions"></div></div></div></div></div>',
   content: '<div></div>',
