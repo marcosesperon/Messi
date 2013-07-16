@@ -10,6 +10,7 @@
  */
 
 // Clase principal
+(function($) {
 function Messi(data, options) {
   
   var _this = this;
@@ -276,3 +277,6 @@ jQuery.extend(Messi, {
   }
   
 });
+
+$.Messi = Messi;
+})(jQuery);
