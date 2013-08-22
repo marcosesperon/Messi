@@ -95,6 +95,11 @@ function Messi(data, options) {
   
   // controlamos el redimensionamiento de la pantalla
   jQuery(window).bind('resize', function(){ _this.resize(); });
+
+  // close message if click anywhere on screen
+  if(_this.options.clickclose != null) {
+    jQuery(window).bind('mousedown touchstart', function() { _this.hide();});
+  }
   
   // configuramos el cierre automático
   if(_this.options.autoclose != null) {
@@ -125,7 +130,8 @@ Messi.prototype = {
     unload: true,                            // unload message after hide
     viewport: {top: '0px', left: '0px'},     // if not center message, sets X and Y position
     width: '500px',                          // message width
-    zIndex: 99999                            // message z-index
+    zIndex: 99999,                           // message z-index
+    clickclose: null                         // close message if click anywhere on screen
   },
   template: '<div class="messi"><div class="messi-box"><div class="messi-wrapper"><div class="messi-titlebox"><span class="messi-title"></span></div><div class="messi-content"></div><div class="messi-footbox"><div class="messi-actions"></div></div></div></div></div>',
   content: '<div></div>',
