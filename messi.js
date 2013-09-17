@@ -88,8 +88,8 @@ function Messi(data, options) {
   };
   
   // activamos la pantalla modal
-  _this.modal = (_this.options.modal) ? jQuery('<div class="messi-modal"></div>').css({opacity: _this.options.modalOpacity, width: jQuery(document).width(), height: jQuery(document).height(), 'z-index': _this.options.zIndex + jQuery('.messi').length}).appendTo(document.body) : null;
-  
+  _this.modal = (_this.options.modal) ? jQuery('<div class="messi-modal"></div>').css({opacity: _this.options.modalOpacity, width: jQuery(document).width(), height: jQuery(document).height(), 'z-index': _this.options.zIndex + jQuery('.messi').length}) : null;
+
   // mostramos el mensaje
   if(_this.options.show) _this.show();
   
@@ -148,8 +148,13 @@ Messi.prototype = {
 
     if(this.visible) return;
     
-    if(this.options.modal && this.modal != null) this.modal.show();
-    this.messi.appendTo(document.body);
+    if (this.messi.parent().length == 0) {
+      // en caso de unload o primer llamamiento
+      this.modal && this.modal.appendTo(document.body);
+      this.messi.appendTo(document.body);
+    }
+    
+    this.modal && this.modal.show();
     
     // obtenemos el centro de la pantalla si la opción de centrar está activada
     if(this.options.center) this.options.viewport = this.viewport(jQuery('.messi-box', this.messi));
@@ -169,8 +174,8 @@ Messi.prototype = {
     var _this = this;
     
     this.messi.animate({opacity: 0}, 300, function() {
-      if(_this.options.modal && _this.modal != null) _this.modal.remove();
-      _this.messi.css({display: 'none'}).remove();
+      _this.modal && _this.modal.css({display: 'none'});
+      _this.messi.css({display: 'none'});
       // reactivamos el scroll
       //document.documentElement.style.overflow = "visible";
       _this.visible = false;
@@ -200,6 +205,7 @@ Messi.prototype = {
   unload: function() {
     if (this.visible) this.hide();
     jQuery(window).unbind('resize', function () { this.resize(); });
+    this.modal && this.modal.remove();
     this.messi.remove();
   },
 
