@@ -94,7 +94,7 @@ function Messi(data, options) {
   if(_this.options.show) _this.show();
   
   // controlamos el redimensionamiento de la pantalla
-  jQuery(window).bind('resize', function(){ _this.resize(); });
+  jQuery(window).bind('resize scroll', function(){ _this.resize(); });
   
   // configuramos el cierre automático
   if(_this.options.autoclose != null) {
@@ -199,7 +199,7 @@ Messi.prototype = {
   
   unload: function() {
     if (this.visible) this.hide();
-    jQuery(window).unbind('resize', function () { this.resize(); });
+    jQuery(window).unbind('resize scroll', function () { this.resize(); });
     this.messi.remove();
   },
 
