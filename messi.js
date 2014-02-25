@@ -167,6 +167,10 @@ Messi.prototype = {
     
     if (!this.visible) return;
     var _this = this;
+
+    if(typeof after === 'function' && after.call() === false) {
+      return this;
+    }
     
     this.messi.animate({opacity: 0}, 300, function() {
       if(_this.options.modal && _this.modal != null) _this.modal.remove();
@@ -174,7 +178,6 @@ Messi.prototype = {
       // reactivamos el scroll
       //document.documentElement.style.overflow = "visible";
       _this.visible = false;
-      if (after) after.call();
       if(_this.options.unload) _this.unload();
     });
     
