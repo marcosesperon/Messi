@@ -18,6 +18,7 @@ Messi requires jQuery framework to work, so include it first of all in your proj
 
 ```html
 <link rel="stylesheet" href="messi.min.css" />
+Messi is the Greatest Player of Football.
 ```
 And before the `</body>` the script:
 
