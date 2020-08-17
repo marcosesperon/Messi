@@ -125,7 +125,8 @@ Messi.prototype = {
     unload: true,                            // unload message after hide
     viewport: {top: '0px', left: '0px'},     // if not center message, sets X and Y position
     width: '500px',                          // message width
-    zIndex: 99999                            // message z-index
+    zIndex: 99999,                           // message z-index
+  minMargin : 15                           // set how much minimal space there should be (in pixels) when the nudge function moves the popup back into the window
   },
   template: '<div class="messi"><div class="messi-box"><div class="messi-wrapper"><div class="messi-titlebox"><span class="messi-title"></span></div><div class="messi-content"></div><div class="messi-footbox"><div class="messi-actions"></div></div></div></div></div>',
   content: '<div></div>',
@@ -152,13 +153,12 @@ Messi.prototype = {
     this.messi.appendTo(document.body);
     
     // obtenemos el centro de la pantalla si la opción de centrar está activada
-    if(this.options.center) this.options.viewport = this.viewport(jQuery('.messi-box', this.messi));
-    
-    this.messi.css({top: this.options.viewport.top, left: this.options.viewport.left, 'z-index': this.options.zIndex + jQuery('.messi').length}).show().animate({opacity: 1}, 300);
-    
+    if(this.options.center){ this.options.viewport = this.viewport(jQuery('.messi-box', this.messi)); }
+	else{ this.nudge();  }
+	this.messi.css({top: this.options.viewport.top, left: this.options.viewport.left, 'z-index': this.options.zIndex + jQuery('.messi').length}).show().animate({opacity: 1}, 300);
     // cancelamos el scroll
     //document.documentElement.style.overflow = "hidden";
-    
+   
     this.visible = true;
   
   },
@@ -202,6 +202,41 @@ Messi.prototype = {
     jQuery(window).unbind('resize', function () { this.resize(); });
     this.messi.remove();
   },
+  nudge : function() {
+	// this.options.viewport.top, this.options.viewport.left
+    var win = $(window);
+	var x= (this.options.viewport.left).replace("px", "");
+	var y= (this.options.viewport.top).replace("px", "");
+	if (this.isNumber(x) && this.isNumber(y) ){
+		x = parseInt(x, 10);
+		y = parseInt(y, 10);
+		//console.log("nudge: "+this.options.viewport.left+", "+this.options.viewport.top);
+		//console.log("nudge - parsed : "+x+", "+y);
+		//console.log("scrollleft: "+$(document).scrollLeft());
+		// When the popup is too far on the right, change the viewport  to the left
+		var xtreme = $(document).scrollLeft() + win.width() - this.messi.width() - this.options.minMargin;
+		if(x > xtreme) {
+			x -= this.messi.width() + 2 * this.options.minMargin;
+		}
+		x = this.max(x, 0);
+
+		// When the popup is too far down, move popup up
+		if((y + this.messi.height()) > (win.height() +  $(document).scrollTop())) {
+			y -= this.messi.height() + this.options.minMargin;
+		}
+		//console.log("adjusted:  x "+x+" , y "+y);
+		this.options.viewport.left = x.toString()+"px";
+		this.options.viewport.top = y.toString()+"px";
+		//return {"left" : (x.toString()+"px") , "top" : (y.toString()+"px") };
+	}
+	
+	
+ },
+ max : function(a,b) {
+    if (a>b) return a;
+    else return b;
+ },
+ isNumber : function (n){ return !isNaN(parseFloat(n)) && isFinite(n); }
 
 };
 
