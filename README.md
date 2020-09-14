@@ -3,6 +3,7 @@ A simple message plugin for jQuery.
 
 Copyright 2012, Marcos Esperón: http://marcosesperon.es
 
+
 ## About
 Messi is a jQuery plugin to show clean, elegant messages in a simple way. With Messi you will avoid to use default JavaScript alert notifications or new windows to provide extended information to the user.
 
@@ -33,6 +34,8 @@ new Messi('This is a message with Messi.', {title: 'Title'});
 
 You will find more examples at [http://marcosesperon.es/apps/messi/](http://marcosesperon.es/apps/messi/)
 
+ 
+ 
 Enjoy it!
 
 ## Requirements
